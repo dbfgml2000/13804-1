@@ -1,4 +1,4 @@
-package com.back.domain.wiseSaying.service;
+package com.back.domain.wiseSaying.repository;
 
 import com.back.domain.wiseSaying.entity.WiseSaying;
 

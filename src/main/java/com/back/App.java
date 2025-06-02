@@ -8,15 +8,15 @@ import java.util.Scanner;
 public class App {
     private final Scanner scanner;
 
-    public App(Scanner scanner) {
-        this.scanner = scanner;
+    public App() {
+        this.scanner = AppContext.scanner;
     }
 
     public void run() {
         System.out.println("== 명언 앱 ==");
 
-        SystemController systemController = new SystemController();
-        WiseSayingController wiseSayingController = new WiseSayingController(scanner);
+        SystemController systemController = AppContext.systemController;
+        WiseSayingController wiseSayingController = AppContext.wiseSayingController;
 
         while(true){
             System.out.println("명령) ");
