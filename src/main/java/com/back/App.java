@@ -22,9 +22,12 @@ public class App {
             System.out.println("명령) ");
             String cmd = scanner.nextLine();
 
-            switch (cmd){
+            String actionName = cmd.split("\\?", 2)[0];
+
+            switch (actionName){
                 case "등록" -> wiseSayingController.actionWrite();
                 case "목록" -> wiseSayingController.actionList();
+                case "삭제" -> wiseSayingController.actionDelete(cmd);
                 case "종료" -> {
                     systemController.actionExit();
                     return;
