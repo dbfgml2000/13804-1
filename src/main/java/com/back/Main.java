@@ -10,7 +10,7 @@ public class Main {
     private static void lab1() {
         String input = "등록";
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(input);
 
         String cmd = scanner.nextLine();
 
