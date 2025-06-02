@@ -17,7 +17,7 @@ public class AppTest {
         Scanner scanner = TestUtil.genScanner("종료");
 
         ByteArrayOutputStream output = TestUtil.setOutToByteArray();
-        new App(scanner);
+        new App(scanner).run();
         String rs = output.toString();
 
         assertThat(rs)
