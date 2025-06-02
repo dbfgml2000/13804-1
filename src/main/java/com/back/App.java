@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class App {
 
     private final Scanner scanner;
+    private int lastId = 0;
 
     public App(Scanner scanner) {
         this.scanner = scanner;
@@ -25,7 +26,9 @@ public class App {
                     System.out.println("작가 : ");
                     String author = scanner.nextLine();
 
-                    System.out.println("1번 명언이 등록되었습니다.");
+                    lastId++;
+
+                    System.out.println(lastId + "번 명언이 등록되었습니다.");
                 }
                 case "종료" -> {
                     return;
