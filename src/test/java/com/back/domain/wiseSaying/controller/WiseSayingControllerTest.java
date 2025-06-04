@@ -196,7 +196,7 @@ public class WiseSayingControllerTest {
     @DisplayName("목록 : 한 페이지에 최대 5개만 노출된다.")
     void t11() {
         String rs = AppTestRunner.run(
-                makeSampleDataAndListCommand()
+                makeSampleDataCommand() + "\n목록"
         );
 
         assertThat(rs)
@@ -212,20 +212,18 @@ public class WiseSayingControllerTest {
                 .doesNotContain("1 / 작자미상 1 / 명언 1");
     }
 
-    private String makeSampleDataAndListCommand() {
+    private String makeSampleDataCommand() {
         return IntStream
                 .rangeClosed(1, 10)
                 .mapToObj(id -> "등록\n명언 %d\n작자미상 %d".formatted(id, id))
-                .collect(Collectors.joining("\n")) + "\n" + """
-                목록
-                """;
+                .collect(Collectors.joining("\n"));
     }
 
     @Test
     @DisplayName("목록?page=2")
     void t12() {
         String rs = AppTestRunner.run(
-                makeSampleDataAndListCommand()
+                makeSampleDataCommand() + "\n목록?page=2"
         );
 
         assertThat(rs)
