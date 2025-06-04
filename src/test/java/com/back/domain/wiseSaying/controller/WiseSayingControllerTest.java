@@ -198,7 +198,7 @@ public class WiseSayingControllerTest {
         String rs = AppTestRunner.run(
                 IntStream
                         .rangeClosed(1, 10)
-                        .mapToObj(id -> "등록\n명언 %d\n 작자미상 %d".formatted(id, id))
+                        .mapToObj(id -> "등록\n명언 %d\n작자미상 %d".formatted(id, id))
                         .collect(Collectors.joining("\n")) + "\n" + """
                         목록
                         """
