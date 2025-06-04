@@ -3,11 +3,9 @@ package com.back.domain.wiseSaying.controller;
 import com.back.AppContext;
 import com.back.domain.wiseSaying.entity.WiseSaying;
 import com.back.domain.wiseSaying.service.WiseSayingService;
+import com.back.global.Rq;
 
-import java.util.Arrays;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class WiseSayingController {
     private final Scanner scanner;
@@ -39,18 +37,13 @@ public class WiseSayingController {
         }
     }
 
-    public void actionDelete(String cmd) {
-        String[] cmdBits = cmd.split("\\?", 2);
-        String queryString = cmdBits[1];
+    public void actionDelete(Rq rq) {
+        int id = rq.getParamAsInt("id", -1);
 
-        Map<String, String> params = Arrays
-                .stream(queryString.split("&"))
-                .map(e -> e.split("=", 2))
-                .filter(e -> e.length == 2 && !e[0].isBlank() && !e[1].isBlank())
-                .collect(Collectors.toMap(e -> e[0].trim(), e -> e[1].trim()));
-
-        String idStr = params.getOrDefault("id", "");
-        int id = Integer.parseInt(idStr);
+        if (id == -1) {
+            System.out.println("id를 정확히 입력해주세요.");
+            return;
+        }
 
         boolean deleted = wiseSayingService.delete(id);
 
@@ -63,18 +56,13 @@ public class WiseSayingController {
 
     }
 
-    public void actionModify(String cmd) {
-        String[] cmdBits = cmd.split("\\?", 2);
-        String queryString = cmdBits[1];
+    public void actionModify(Rq rq) {
+        int id = rq.getParamAsInt("id", -1);
 
-        Map<String, String> params = Arrays
-                .stream(queryString.split("&"))
-                .map(e -> e.split("=", 2))
-                .filter(e -> e.length == 2 && !e[0].isBlank() && !e[1].isBlank())
-                .collect(Collectors.toMap(e -> e[0].trim(), e -> e[1].trim()));
-
-        String idStr = params.getOrDefault("id", "");
-        int id = Integer.parseInt(idStr);
+        if (id == -1) {
+            System.out.println("id를 정확히 입력해주세요.");
+            return;
+        }
 
         WiseSaying wiseSaying = wiseSayingService.findById(id);
 
