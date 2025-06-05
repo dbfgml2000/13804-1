@@ -3,9 +3,11 @@ package com.back.domain.wiseSaying.repository;
 import com.back.domain.wiseSaying.entity.WiseSaying;
 import com.back.standard.dto.Page;
 import com.back.standard.dto.Pageable;
+import com.back.standard.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -16,10 +18,22 @@ public class WiseSayingFileRepository {
 
     public WiseSaying save(WiseSaying wiseSaying) {
         if ( wiseSaying.isNew() ) {
-            wiseSaying.setId(++lastId);
-            wiseSayings.add(wiseSaying);
+            wiseSaying.setId(1);
         }
+
+        Map<String, Object> wiseSayingMap = wiseSaying.toMap();
+        String wiseSayingJsonStr = Util.json.toString(wiseSayingMap);
+        Util.file.set("db/wiseSaying/1.json", wiseSayingJsonStr);
+
         return wiseSaying;
+    }
+
+    public WiseSaying findById(int id) {
+        String wiseSayingJsonStr = Util.file.get("db/wiseSaying/%d.json".formatted(id), "");
+
+        Map<String, Object> wiseSayingMap = Util.json.toMap(wiseSayingJsonStr);
+
+        return new WiseSaying(wiseSayingMap);
     }
 
     public Page<WiseSaying> findForList(Pageable pageable) {
@@ -40,12 +54,6 @@ public class WiseSayingFileRepository {
                 .filter(index -> wiseSayings.get(index).getId() == id)
                 .findFirst()
                 .orElse(-1);
-    }
-
-    public WiseSaying findById(int id) {
-        int index = findIndexById(id);
-        if(index == -1) return null;
-        return wiseSayings.get(index);
     }
 
     public void delete(WiseSaying wiseSaying) {
