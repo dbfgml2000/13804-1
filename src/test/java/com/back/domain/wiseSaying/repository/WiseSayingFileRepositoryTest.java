@@ -18,7 +18,7 @@ public class WiseSayingFileRepositoryTest {
 
     @BeforeAll
     static void beforeAll() {
-        AppContext.renew();;
+        AppContext.renew();
     }
 
     @Test
